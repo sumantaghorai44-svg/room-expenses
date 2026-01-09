@@ -4,6 +4,8 @@ workflows:
     environment:
       flutter: stable
     scripts:
+      - name: Create Flutter project
+        script: flutter create .
       - name: Get packages
         script: flutter pub get
       - name: Build APK
