@@ -1,14 +1,21 @@
 workflows:
   default-workflow:
-    name: Generate Flutter structure
+    name: Default Workflow
     environment:
       flutter: stable
     scripts:
       - name: Create Flutter project
-        script: |
-          flutter create .
+        script: flutter create .
       - name: Get packages
+        script: flutter pub get
+      - name: Commit Flutter files back to repo
         script: |
-          flutter pub get
+          git config --global user.email "ci@codemagic.io"
+          git config --global user.name "Codemagic CI"
+          git add .
+          git commit -m "Initialize Flutter project" || echo "Nothing to commit"
+          git push origin main
+      - name: Build APK
+        script: flutter build apk --release
     artifacts:
-      - build/**
+      - build/app/outputs/flutter-apk/*.apk
