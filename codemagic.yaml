@@ -1,21 +1,11 @@
 workflows:
-  default-workflow:
-    name: Default Workflow
+  android-build:
+    name: Android APK Build
+    max_build_duration: 60
     environment:
       flutter: stable
     scripts:
-      - name: Create Flutter project
-        script: flutter create .
-      - name: Get packages
-        script: flutter pub get
-      - name: Commit Flutter files back to repo
-        script: |
-          git config --global user.email "ci@codemagic.io"
-          git config --global user.name "Codemagic CI"
-          git add .
-          git commit -m "Initialize Flutter project" || echo "Nothing to commit"
-          git push origin main
-      - name: Build APK
-        script: flutter build apk --release
+      - flutter pub get
+      - flutter build apk --release
     artifacts:
-      - build/app/outputs/flutter-apk/*.apk
+      - build/app/outputs/flutter-apk/app-release.apk
