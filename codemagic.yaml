@@ -1,14 +1,14 @@
 workflows:
   default-workflow:
-    name: Default Workflow
+    name: Generate Flutter structure
     environment:
       flutter: stable
     scripts:
       - name: Create Flutter project
-        script: flutter create .
+        script: |
+          flutter create .
       - name: Get packages
-        script: flutter pub get
-      - name: Build APK
-        script: flutter build apk --release
+        script: |
+          flutter pub get
     artifacts:
-      - build/app/outputs/flutter-apk/*.apk
+      - build/**
